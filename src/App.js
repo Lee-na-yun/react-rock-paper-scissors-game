@@ -1,14 +1,15 @@
 import "./App.css";
 import HandIcon from "./HandIcon";
 import Dice from "./Dice";
+import HandButton from "./HandButton";
 
 function App() {
+  const handleClick = (value) => console.log(value);
   return (
     <>
-      {/* <Dice color="red" num={2} /> */}
-      <HandIcon value="rock"/>
-      <HandIcon value="scissor"/>
-      <HandIcon value="paper"/>
+      <HandButton value="rock" onClick={handleClick} />
+      <HandButton value="scissor" onClick={handleClick} />
+      <HandButton value="paper" onClick={handleClick} />
     </>
   );
 }
