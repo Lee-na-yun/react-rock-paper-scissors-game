@@ -5,7 +5,7 @@ import Dice from "./Dice";
 function App() {
   return (
     <>
-      <Dice color="red" />
+      <Dice color="red" num={2} />
     </>
   );
 }
