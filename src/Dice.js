@@ -1,9 +1,11 @@
 import diceBlue01 from "./assets/dice-blue-1.svg";
+import diceRed01 from "./assets/dice-red-1.svg";
 
-function Dice() {
+function Dice(props) {
+  const diceImg = props.color === "red" ? diceRed01 : diceBlue01;
   return (
     <div>
-      <img src={diceBlue01} alt="주사위" />
+      <img src={diceImg} alt="주사위" />
     </div>
   );
 }
