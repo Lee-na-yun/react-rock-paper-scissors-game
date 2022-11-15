@@ -5,17 +5,20 @@ import HandButton from "./HandButton";
 import Button from "./Button";
 
 function App() {
-  //const handleClick = (value) => console.log(value);
+  const handleClick = (value) => console.log(value);
+  const handleClearClick = () => console.log("처음부터");
   return (
     <>
-      {/* <HandButton value="rock" onClick={handleClick} />
+      <Button onClick={handleClearClick}>처음부터</Button>
+      <HandButton value="rock" onClick={handleClick} />
       <HandButton value="scissor" onClick={handleClick} />
-      <HandButton value="paper" onClick={handleClick} /> */}
-      <div>
+      <HandButton value="paper" onClick={handleClick} />
+
+      {/* <div>
         <Button>던지기</Button>
         <Button>처음부터</Button>
       </div>
-      <Dice color="red" num={2}></Dice>
+      <Dice color="red" num={2}></Dice> */}
     </>
   );
 }
