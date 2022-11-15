@@ -4,36 +4,46 @@ import Dice from "./Dice";
 import HandButton from "./HandButton";
 import Button from "./Button";
 import { useState } from "react";
+import { generateRandomHand, compareHand } from "./utils";
 
-function random(n) {
-  return Math.ceil(Math.random() * n);
+function getResult(me, other) {
+  const comparison = compareHand(me, other);
+  if (comparison > 0) return "승리";
+  if (comparison < 0) return "패배";
+  return "무승부";
 }
 
 function App() {
-  //const handleClick = (value) => console.log(value);
+  const [hand, setHand] = useState("rock");
+  const [otherHand, setOtherHand] = useState("scissor");
 
-  const [num, setNum] = useState(1);
-  const handleRollClick = () => {
-    const nextNum = random(6);
-    setNum(nextNum);
+  const handleButtonClick = (nextHand) => {
+    const nextOtherHand = generateRandomHand();
+    setHand(nextHand);
+    setOtherHand(nextOtherHand);
   };
+
+  const INIT_VALUE = "rock";
+
   const handleClearClick = () => {
-    setNum(1);
+    setHand(INIT_VALUE);
+    setOtherHand(INIT_VALUE);
   };
-
   return (
-    <>
-      {/* <Button onClick={handleClearClick}>처음부터</Button>
-      <HandButton value="rock" onClick={handleClick} />
-      <HandButton value="scissor" onClick={handleClick} />
-      <HandButton value="paper" onClick={handleClick} /> */}
-
+    <div>
+      <Button onClick={handleClearClick}>처음부터</Button>
+      <p>{getResult(hand, otherHand)}</p>
       <div>
-        <Button onClick={handleRollClick}>던지기</Button>
-        <Button onClick={handleClearClick}>처음부터</Button>
+        <HandIcon value={hand} />
+        VS
+        <HandIcon value={otherHand} />
       </div>
-      <Dice color="red" num={num} />
-    </>
+      <div>
+        <HandButton value="rock" onClick={handleButtonClick} />
+        <HandButton value="scissor" onClick={handleButtonClick} />
+        <HandButton value="paper" onClick={handleButtonClick} />
+      </div>
+    </div>
   );
 }
 
