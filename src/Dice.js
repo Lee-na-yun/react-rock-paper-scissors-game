@@ -11,6 +11,7 @@ import diceRed04 from "./assets/dice-red-4.svg";
 import diceRed05 from "./assets/dice-red-5.svg";
 import diceRed06 from "./assets/dice-red-6.svg";
 
+// 주사위던지기 총점
 const DICE_IMAGES = {
   blue: [
     diceBlue01,

@@ -6,44 +6,38 @@ import Button from "./Button";
 import { useState } from "react";
 import { generateRandomHand, compareHand } from "./utils";
 
-function getResult(me, other) {
-  const comparison = compareHand(me, other);
-  if (comparison > 0) return "승리";
-  if (comparison < 0) return "패배";
-  return "무승부";
+function random(n) {
+  return Math.ceil(Math.random() * n);
 }
 
 function App() {
-  const [hand, setHand] = useState("rock");
-  const [otherHand, setOtherHand] = useState("scissor");
+  const [num, setNum] = useState(1);
+  const [sum, setSum] = useState(0);
 
-  const handleButtonClick = (nextHand) => {
-    const nextOtherHand = generateRandomHand();
-    setHand(nextHand);
-    setOtherHand(nextOtherHand);
+  const handleRollClick = () => {
+    const nextNum = random(6);
+    setNum(nextNum);
+    setSum(sum + nextNum);
   };
-
-  const INIT_VALUE = "rock";
 
   const handleClearClick = () => {
-    setHand(INIT_VALUE);
-    setOtherHand(INIT_VALUE);
+    setNum(1);
+    setSum(0);
   };
+
   return (
-    <div>
-      <Button onClick={handleClearClick}>처음부터</Button>
-      <p>{getResult(hand, otherHand)}</p>
+    <>
       <div>
-        <HandIcon value={hand} />
-        VS
-        <HandIcon value={otherHand} />
+        <Button onClick={handleRollClick}>던지기</Button>
+        <Button onClick={handleClearClick}>처음부터</Button>
       </div>
       <div>
-        <HandButton value="rock" onClick={handleButtonClick} />
-        <HandButton value="scissor" onClick={handleButtonClick} />
-        <HandButton value="paper" onClick={handleButtonClick} />
+        <h2>나</h2>
+        <Dice color="blue" num={num}/>
+        <h2>총점</h2>
+        <p>{sum}</p>
       </div>
-    </div>
+    </>
   );
 }
 
