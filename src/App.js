@@ -11,12 +11,14 @@ function random(n) {
 
 function App() {
   //const handleClick = (value) => console.log(value);
-  //const handleClearClick = () => console.log("처음부터");
 
   const [num, setNum] = useState(1);
   const handleRollClick = () => {
     const nextNum = random(6);
     setNum(nextNum);
+  };
+  const handleClearClick = () => {
+    setNum(1);
   };
 
   return (
@@ -28,7 +30,7 @@ function App() {
 
       <div>
         <Button onClick={handleRollClick}>던지기</Button>
-        <Button>처음부터</Button>
+        <Button onClick={handleClearClick}>처음부터</Button>
       </div>
       <Dice color="red" num={num} />
     </>
