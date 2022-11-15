@@ -6,45 +6,50 @@ import Button from "./Button";
 import { useState } from "react";
 import { generateRandomHand, compareHand } from "./utils";
 
-function random(n) {
-  return Math.ceil(Math.random() * n);
+const INIT_VALUE = "rock";
+
+function getResult(me, other) {
+  const comparison = compareHand(me, other);
+  if (comparison > 0) return "승리";
+  if (comparison < 0) return "패배";
+  return "무승부";
 }
 
 function App() {
-  const [num, setNum] = useState(1);
-  const [sum, setSum] = useState(0);
+  const [hand, setHand] = useState(INIT_VALUE);
+  const [otherHand, setOtherHand] = useState(INIT_VALUE);
   const [gameHistory, setGameHistory] = useState([]);
 
-  const handleRollClick = () => {
-    const nextNum = random(6);
-    setNum(nextNum);
-    setSum(sum + nextNum);
-    setGameHistory([...gameHistory, nextNum]); // set함수로 새 값이 추가된 gameHistory state 전달하기
+  const handleButtonClick = (nextHand) => {
+    const nextOtherHand = generateRandomHand();
+    const nextHistoryItem = getResult(nextHand, nextOtherHand);
+    setHand(nextHand);
+    setOtherHand(nextOtherHand);
+    setGameHistory([...gameHistory, nextHistoryItem]);
   };
 
   const handleClearClick = () => {
-    setNum(1);
-    setSum(0);
+    setHand(INIT_VALUE);
+    setOtherHand(INIT_VALUE);
     setGameHistory([]);
   };
 
   return (
-    <>
+    <div>
+      <Button onClick={handleClearClick}>처음부터</Button>
+      <p>{getResult(hand, otherHand)}</p>
       <div>
-        <Button onClick={handleRollClick}>던지기</Button>
-        <Button onClick={handleClearClick}>처음부터</Button>
+        <HandIcon value={hand} />
+        VS
+        <HandIcon value={otherHand} />
       </div>
+      <p>승부 기록: {gameHistory.join(", ")}</p>
       <div>
-        <h2>나</h2>
-        <Dice color="blue" num={num} />
-        <h2>총점</h2>
-        <p>{sum}</p>
-        <p>기록</p>
-        <p>{gameHistory.join(",")}</p>
-        {/* 1. 각 주사위 숫자값들을 쉼표(,)로 전달하고
-            2. join메서드는 argument로 전달한 값을 배열의 각 요소들 사이사이에 넣어서 결과적으로 하나의 문자열로 만들어줌*/}
+        <HandButton value="rock" onClick={handleButtonClick} />
+        <HandButton value="scissor" onClick={handleButtonClick} />
+        <HandButton value="paper" onClick={handleButtonClick} />
       </div>
-    </>
+    </div>
   );
 }
 
