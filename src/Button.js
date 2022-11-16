@@ -1,7 +1,7 @@
 import './Button.css';
 
-function Button({ children, onClick, color = 'blue'}) {
-  const classNames = `Button ${color}`; // 클래스네임값이 바뀌게 하기
+function Button({ children, onClick, color = 'blue', className = ''}) {
+  const classNames = `Button ${color} ${className}`; // 클래스네임값이 바뀌게 하기
   return (
     <button className={classNames} onClick={onClick}>
       {children}
